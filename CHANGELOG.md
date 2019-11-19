@@ -1,4 +1,7 @@
 # CHANGELOG
+* v1.1.3 [2019]: Fixed bug in switch script for order of turns
+  Added if statement that sets pointer to who's turn it is back to the first (0) when end of players list is reached. For switch.py script
+
 * v1.1.2 [2019-11-19]: Fixed bug in players script.
   Simple fix for players.py, line missing closing bracket so has been added
 

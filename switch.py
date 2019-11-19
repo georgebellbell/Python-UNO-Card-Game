@@ -54,13 +54,17 @@ class Switch:
 
         i = 0 # current player index
         while True:
-            # process current player's turn 
+            # process current player's turn
+
             won = self.run_player(self.players[i])
             if won:
                 break
             else:
-                # advance player index depending on self.direction
-                i = i+self.direction % len(self.players)
+
+                i = i + self.direction % len(self.players)
+                if i == len(self.players):
+                    i=0
+
         UI.print_winner_of_game(self.players[i])
 
     def setup_round(self):

@@ -5,7 +5,7 @@ from cards import generate_deck
 
 
 MAX_PLAYERS = 4
-HAND_SIZE = 7
+HAND_SIZE = 8
 
 
 class Switch:

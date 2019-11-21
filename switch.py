@@ -107,6 +107,7 @@ class Switch:
         # apply any pending penalties (skip, draw2, draw4)
         if self.skip:
             # return without performing any discard
+
             self.skip == False
             UI.print_message('{} is skipped.'.format(player.name))
         elif self.draw2:
@@ -129,9 +130,10 @@ class Switch:
 
         # have player select card
         hands = self.get_normalized_hand_sizes(player)
-        card = player.select_card(discardable, hands) if discardable else None
-
-        if card:
+       # card = player.select_card(player.hand, hands) if self.can_discard(card) else None
+        #print(card)
+        card = player.select_card(player.hand, hands)
+        if self.can_discard(card):
             # discard card and determine whether player has won
             self.discard_card(player, card)
             # if all cards discarded, return True
@@ -160,7 +162,9 @@ class Switch:
         sufficient, the maximum possible number of cards is picked.
         """
         # repeat n times
+        global i
         for i in range(1, n):
+           # print(i)
             # if no more card in stock pile
             if not self.stock:
                 # add back discarded cards (but not top card)
@@ -178,15 +182,21 @@ class Switch:
             player.hand.append(card)
         return i
 
+
+
     def can_discard(self, card):
+        top_card = self.discards[-1]
         """Return whether card can be discarded onto discard pile."""
         # queens and aces can always be discarded
         if card.value in 'QA':
             return True
         # otherwise either suit or value has to match with top card
+
+        elif card.suit == top_card.suit or card.value == top_card.value:
+            return True
+
         else:
-            top_card = self.discards[-1]
-            return card.suit == top_card.suit and card.value == top_card.value
+            return False
 
     def draw_and_discard(self, player):
         """Draw a card from stock and discard it if possible.
@@ -236,7 +246,7 @@ class Switch:
             self.draw4 = True
         # if card is a king, game direction reverses
         elif card.value == 'K':
-            self.direction *= 1
+            self.direction *= -1
             UI.print_message("Game direction reversed.")
         # if card is a jack, ask player with whom to swap hands
         elif card.value == 'J':

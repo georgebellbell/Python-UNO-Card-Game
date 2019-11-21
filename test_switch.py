@@ -94,7 +94,7 @@ def test_can_discard__allows_ace():
     s = mock_setup_round([], '', '♣5')
     assert s.can_discard(Card('♢', 'A'))
     assert s.can_discard(Card('♡', 'A'))
-    assert s.can_discard(Card('♠', 'K'))
+    assert s.can_discard(Card('♠', 'A'))
 
 
 def test_can_discard__allows_queen():
@@ -197,7 +197,7 @@ def test_run_player__returns_true_upon_win():
 
 def test_run_player__draws_card():
     """run_player forces pick up if no discard possible"""
-    s = mock_setup_round(['♣4', '♣9'], '♢5 ♢6 ♢7 ♢8', '♡3')
+    s = mock_setup_round(['♣4', '♣9'], ['♢5 ♢6 ♢7 ♢8'], ['♡3'])
     player = s.players[0]
     s.run_player(player)
     assert len(player.hand) == 2

@@ -1,4 +1,7 @@
 # CHANGELOG
+* v1.1.1 [2019-11-21]: Base functionality of game works with only discarding cards with matching suite or value to top
+value. Accomplished this by changing the can discard function to make sure it returns boolean values and use this to check 
+card to discard in run player function
 
 * v1.1.1 [2019-11-21]: Assert fixed in the test_switch.py file
  test_can_discard__allows_ace had assertion of King rather than Ace so made appropriate change

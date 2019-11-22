@@ -15,7 +15,6 @@ class Switch:
 
 
 
-
     Switch objects have the following attributes, which are initialized
     by Switch_setup_round:
 
@@ -107,7 +106,6 @@ class Switch:
         # apply any pending penalties (skip, draw2, draw4)
         if self.skip:
             # return without performing any discard
-
             self.skip == False
             UI.print_message('{} is skipped.'.format(player.name))
         elif self.draw2:
@@ -130,8 +128,8 @@ class Switch:
 
         # have player select card
         hands = self.get_normalized_hand_sizes(player)
-       # card = player.select_card(player.hand, hands) if self.can_discard(card) else None
-        #print(card)
+       # card = player.select_card(discardable, hands) if discardable else None
+
         card = player.select_card(player.hand, hands)
         if self.can_discard(card):
             # discard card and determine whether player has won
@@ -164,7 +162,6 @@ class Switch:
         # repeat n times
         global i
         for i in range(1, n):
-           # print(i)
             # if no more card in stock pile
             if not self.stock:
                 # add back discarded cards (but not top card)
@@ -181,8 +178,6 @@ class Switch:
             # and add to hand
             player.hand.append(card)
         return i
-
-
 
     def can_discard(self, card):
         top_card = self.discards[-1]
@@ -246,7 +241,7 @@ class Switch:
             self.draw4 = True
         # if card is a king, game direction reverses
         elif card.value == 'K':
-            self.direction *= -1
+            self.direction *= 1
             UI.print_message("Game direction reversed.")
         # if card is a jack, ask player with whom to swap hands
         elif card.value == 'J':

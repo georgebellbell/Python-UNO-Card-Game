@@ -1,4 +1,5 @@
 # CHANGELOG
+
 * v1.1.1 [2019-11-21]: Effect of King card now works with direction of game being reversed.
   self.direction *= -1 in elif statement for king so direction will alternate between positive and negative. 
 

@@ -1,6 +1,11 @@
 # CHANGELOG
+* v1.1.1 [2019-11-23]: If player picks card to discard that can't be, i.e when they have no playable cards rather than 
+ trying to discard bottom card in hand draws a new card from deck and if discardable does so and if not is added to players hand. 
+ Accomplished by setting card variable in draw and discard to self.stock.pop() and then if it couldn't be discarded appended that
+  card to the players hand
+
 * v1.1.1 [2019-11-23]: Ability of Jack card now works with next player in order being skipped
-   nested majority of code for a turn in run player function so it will only ran if that user is not being skipped
+   nested majority of code for a turn in run player function so it will only run if that user is not being skipped
 
 * v1.1.1 [2019-11-22]: Effect of King card now works with direction of game being reversed.
   self.direction *= -1 in elif statement for king so direction will alternate between positive and negative. 

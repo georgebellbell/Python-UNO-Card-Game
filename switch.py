@@ -211,12 +211,13 @@ class Switch:
         if not self.pick_up_card(player):
             return
         # discard picked card if possible
-        card = player.hand[-1]
+        card = self.stock.pop()
         if self.can_discard(card):
             self.discard_card(player, card)
         # otherwise inform the player
         elif not player.is_ai:
             UI.print_discard_result(False, card)
+            player.hand.append(card)
 
     def discard_card(self, player, card):
         """Discard card and apply its game effects.

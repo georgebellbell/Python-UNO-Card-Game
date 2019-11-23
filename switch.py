@@ -51,20 +51,20 @@ class Switch:
         # deal cards etc.
         self.setup_round()
 
-        i = 0 # current player index
+        c = 0 # current player index
         while True:
             # process current player's turn
 
-            won = self.run_player(self.players[i])
+            won = self.run_player(self.players[c])
             if won:
                 break
             else:
 
-                i = i + self.direction % len(self.players)
-                if i == len(self.players):
-                    i=0
+                c = c + self.direction % len(self.players)
+                if c == len(self.players):
+                    c = 0
 
-        UI.print_winner_of_game(self.players[i])
+        UI.print_winner_of_game(self.players[c])
 
     def setup_round(self):
         """Initialize a round of switch.
@@ -104,43 +104,46 @@ class Switch:
         called to draw from stock.
         """
         # apply any pending penalties (skip, draw2, draw4)
-        if self.skip:
-            # return without performing any discard
-            self.skip == False
-            UI.print_message('{} is skipped.'.format(player.name))
-        elif self.draw2:
+
+        if self.draw2:
             # draw two cards
             picked = self.pick_up_card(player, 2)
-            self.draw2 == False
+            self.draw2 = False
             UI.print_message('{} draws {} cards.'.format(player.name, picked))
         elif self.draw4:
             # draw four cards
             picked = self.pick_up_card(player, 4)
-            self.draw4 == False
+            self.draw4 = False
             UI.print_message('{} draws {} cards.'.format(player.name, picked))
 
-        top_card = self.discards[-1]
-        hand_sizes = [len(p.hand) for p in self.players]
-        UI.print_player_info(player, top_card, hand_sizes)
-
-        # determine discardable cards
-        discardable = [card for card in player.hand if self.can_discard]
-
-        # have player select card
-        hands = self.get_normalized_hand_sizes(player)
-       # card = player.select_card(discardable, hands) if discardable else None
-
-        card = player.select_card(player.hand, hands)
-        if self.can_discard(card):
-            # discard card and determine whether player has won
-            self.discard_card(player, card)
-            # if all cards discarded, return True
-            return not player.hand
+        if self.skip:
+            # return without performing any discard
+            self.skip = False
+            UI.print_message('{} is skipped.'.format(player.name))
         else:
-            # draw and (potentially) discard
-            self.draw_and_discard(player)
-            # player still has cards and the game goes on
-            return False
+
+            top_card = self.discards[-1]
+            hand_sizes = [len(p.hand) for p in self.players]
+            UI.print_player_info(player, top_card, hand_sizes)
+
+            # determine discardable cards
+            discardable = [card for card in player.hand if self.can_discard]
+
+            # have player select card
+            hands = self.get_normalized_hand_sizes(player)
+            # card = player.select_card(discardable, hands) if discardable else None
+
+            card = player.select_card(player.hand, hands)
+            if self.can_discard(card):
+                # discard card and determine whether player has won
+                self.discard_card(player, card)
+                # if all cards discarded, return True
+                return not player.hand
+            else:
+                # draw and (potentially) discard
+                self.draw_and_discard(player)
+                # player still has cards and the game goes on
+                return False
 
     def pick_up_card(self, player, n=1):
         """Pick card from stock and add to player hand.

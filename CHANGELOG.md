@@ -1,6 +1,8 @@
 # CHANGELOG
+* v1.1.1 [2019-11-23]: Ability of Jack card now works with next player in order being skipped
+   nested majority of code for a turn in run player function so it will only ran if that user is not being skipped
 
-* v1.1.1 [2019-11-21]: Effect of King card now works with direction of game being reversed.
+* v1.1.1 [2019-11-22]: Effect of King card now works with direction of game being reversed.
   self.direction *= -1 in elif statement for king so direction will alternate between positive and negative. 
 
 * v1.1.1 [2019-11-21]: Base functionality of game works with only discarding cards with matching suite or value to top

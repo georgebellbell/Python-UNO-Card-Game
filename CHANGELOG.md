@@ -1,4 +1,9 @@
 # CHANGELOG
+* v1.1.1 [2019-11-24]: Allow game to continue if deck of cards is empty my reshuffling with the discards.
+  See work done in  draw_and_discard function with except index error used if main card stack is empty
+
+* v1.1.1 [2019-11-24]: Issue with won index being out of range fixed by placing brackets when determining value for c: c = (c + self.direction) % len(self.players)
+
 * v1.1.1 [2019-11-23]: If player picks card to discard that can't be, i.e when they have no playable cards rather than 
  trying to discard bottom card in hand draws a new card from deck and if discardable does so and if not is added to players hand. 
  Accomplished by setting card variable in draw and discard to self.stock.pop() and then if it couldn't be discarded appended that

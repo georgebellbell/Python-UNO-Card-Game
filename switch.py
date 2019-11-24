@@ -55,14 +55,17 @@ class Switch:
         while True:
             # process current player's turn
 
+
             won = self.run_player(self.players[c])
             if won:
                 break
             else:
 
-                c = c + self.direction % len(self.players)
+                c = (c + self.direction) % len(self.players)
                 if c == len(self.players):
                     c = 0
+                elif c < 0:
+                    c = len(self.players)
 
         UI.print_winner_of_game(self.players[c])
 
@@ -107,12 +110,12 @@ class Switch:
 
         if self.draw2:
             # draw two cards
-            picked = self.pick_up_card(player, 2)
+            picked = self.pick_up_card(player, 3)
             self.draw2 = False
             UI.print_message('{} draws {} cards.'.format(player.name, picked))
         elif self.draw4:
             # draw four cards
-            picked = self.pick_up_card(player, 4)
+            picked = self.pick_up_card(player, 5)
             self.draw4 = False
             UI.print_message('{} draws {} cards.'.format(player.name, picked))
 
@@ -211,13 +214,23 @@ class Switch:
         if not self.pick_up_card(player):
             return
         # discard picked card if possible
-        card = self.stock.pop()
+        try:
+            card = self.stock.pop()
+        except IndexError:
+            self.stock = self.discards[:-1]
+            del self.discards[:-1]
+            # shuffle stock
+            random.shuffle(self.stock)
+            UI.print_message("Discards are shuffled back.")
+            self.pick_up_card(player)
+
+        player.hand.append(card)
         if self.can_discard(card):
             self.discard_card(player, card)
         # otherwise inform the player
         elif not player.is_ai:
             UI.print_discard_result(False, card)
-            player.hand.append(card)
+
 
     def discard_card(self, player, card):
         """Discard card and apply its game effects.

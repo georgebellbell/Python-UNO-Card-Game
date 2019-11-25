@@ -51,7 +51,7 @@ def test_setup_round__deals_cards():
     s.setup_round()
     assert all(len(p.hand) == 7 for p in s.players)
     assert len(s.discards) == 1
-    assert len(s.stock) == 52-len(s.players)*7-1
+    assert len(s.stock) == 52-(len(s.players)*7-3)
 
 
 def test_pick_up_card__pick_correct_number():
@@ -59,14 +59,14 @@ def test_pick_up_card__pick_correct_number():
     s = mock_setup_round(['♣4', '♣9'], '♠7 ♢8 ♠5 ♢6 ♢7', '♠5 ♢6 ♡3')
     player = s.players[0]
     picked = s.pick_up_card(player, 4)
-    assert picked == 4
-    assert len(player.hand) == 5
-    assert len(s.stock) == 1
+    assert picked == 3
+    assert len(player.hand) == 4
+    assert len(s.stock) == 2
 
     picked = s.pick_up_card(player, 4)
     assert picked == 3
-    assert len(player.hand) == 8
-    assert len(s.stock) == 0
+    assert len(player.hand) == 7
+    assert len(s.stock) == 1
 
 
 def test_can_discard__follows_suit():

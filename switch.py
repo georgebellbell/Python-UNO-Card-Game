@@ -112,12 +112,12 @@ class Switch:
 
         if self.draw2:
             # draw two cards
-            picked = self.pick_up_card(player, 2)
+            picked = self.pick_up_card(player, 3)
             self.draw2 = False
             UI.print_message('{} draws {} cards.'.format(player.name, picked))
         elif self.draw4:
             # draw four cards
-            picked = self.pick_up_card(player, 4)
+            picked = self.pick_up_card(player, 5)
             self.draw4 = False
             UI.print_message('{} draws {} cards.'.format(player.name, picked))
 
@@ -171,7 +171,7 @@ class Switch:
         global i
         for i in range(1, n):
             # if no more card in stock pile
-            if not self.stock:
+            if  len(self.stock) == 0:
                 # add back discarded cards (but not top card)
                 if len(self.discards) == 1:
                     UI.print_message("All cards distributed")
@@ -216,15 +216,13 @@ class Switch:
         if not self.pick_up_card(player):
             return
         # discard picked card if possible
+
         try:
             card = self.stock.pop()
-        except IndexError:
-            self.stock = self.discards[:-1]
-            del self.discards[:-1]
-            # shuffle stock
-            random.shuffle(self.stock)
-            UI.print_message("Discards are shuffled back.")
+        except:
+
             self.pick_up_card(player)
+            return
 
         player.hand.append(card)
         if self.can_discard(card):

@@ -1,4 +1,6 @@
 # CHANGELOG
+* v1.1.1 [2019-11-25]: More fixes have been made, solving most fails in pytest. Cards now definitely get reshuffled if stock is empty.  
+
 * v1.1.1 [2019-11-24]: A few small fixes which allow more of the pytest functions to succeed, and hence the actual game. 
  Error with wrong card causing draw 2 ability to occur has been fixed
 

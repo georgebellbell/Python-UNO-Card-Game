@@ -1,4 +1,7 @@
 # CHANGELOG
+* v1.1.1 [2019-11-24]: A few small fixes which allow more of the pytest functions to succeed, and hence the actual game. 
+ Error with wrong card causing draw 2 ability to occur has been fixed
+
 * v1.1.1 [2019-11-24]: Allow game to continue if deck of cards is empty my reshuffling with the discards.
   See work done in  draw_and_discard function with except index error used if main card stack is empty
 

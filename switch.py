@@ -26,6 +26,8 @@ class Switch:
     self.draw4 -- bool indicating that the next player must draw 4 cards
     self.direction -- int, either 1 or -1 indicating direction of play.
     """
+
+
     def run_game(self):
         """Run rounds of the game until player decides to exist."""
         UI.say_welcome()
@@ -110,12 +112,12 @@ class Switch:
 
         if self.draw2:
             # draw two cards
-            picked = self.pick_up_card(player, 3)
+            picked = self.pick_up_card(player, 2)
             self.draw2 = False
             UI.print_message('{} draws {} cards.'.format(player.name, picked))
         elif self.draw4:
             # draw four cards
-            picked = self.pick_up_card(player, 5)
+            picked = self.pick_up_card(player, 4)
             self.draw4 = False
             UI.print_message('{} draws {} cards.'.format(player.name, picked))
 
@@ -130,7 +132,7 @@ class Switch:
             UI.print_player_info(player, top_card, hand_sizes)
 
             # determine discardable cards
-            discardable = [card for card in player.hand if self.can_discard]
+            #discardable = [card for card in player.hand if self.can_discard]
 
             # have player select card
             hands = self.get_normalized_hand_sizes(player)
@@ -251,7 +253,7 @@ class Switch:
         elif card.value == '8':
             self.skip = True
         # if card is a two, next player needs to draw two
-        elif card.value == '4':
+        elif card.value == '2':
             self.draw2 = True
         # if card is a queen, next player needs to draw four
         elif card.value == 'Q':
@@ -282,7 +284,7 @@ class Switch:
         sizes = [len(p.hand) for p in self.players]
         idx = self.players.index(player)
         # rotate list so that given player is first
-        sizes = sizes[:idx] + sizes[idx:]
+        sizes = sizes[idx:] + sizes[:idx]
         # if direction is counter-clockwise, reverse the order and
         # bring given player back to the front
         if self.direction == -1:

@@ -138,17 +138,24 @@ class Switch:
             hands = self.get_normalized_hand_sizes(player)
             # card = player.select_card(discardable, hands) if discardable else None
 
-            card = player.select_card(player.hand, hands)
-            if self.can_discard(card):
-                # discard card and determine whether player has won
-                self.discard_card(player, card)
-                # if all cards discarded, return True
-                return not player.hand
-            else:
-                # draw and (potentially) discard
+            try:
+                card = player.select_card(player.hand, hands)
+                if self.can_discard(card):
+                    # discard card and determine whether player has won
+                    self.discard_card(player, card)
+                    # if all cards discarded, return True
+                    return not player.hand
+                else:
+                    # draw and (potentially) discard
+                    self.draw_and_discard(player)
+                    # player still has cards and the game goes on
+                    return False
+            except AttributeError:
                 self.draw_and_discard(player)
-                # player still has cards and the game goes on
                 return False
+
+
+
 
     def pick_up_card(self, player, n=1):
         """Pick card from stock and add to player hand.

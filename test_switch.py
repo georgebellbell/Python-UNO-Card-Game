@@ -20,6 +20,7 @@ class MockPlayer:
 def mock_setup_round(hands, stock, discards,
                      skip=False, draw2=False, draw4=False, direction=1):
     def str_to_cards(spec):
+
         return [Card(sv[:1], sv[1:]) for sv in spec.split()]
 
     s = switch.Switch()

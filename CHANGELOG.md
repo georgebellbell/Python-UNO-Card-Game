@@ -1,4 +1,8 @@
 # CHANGELOG
+* v1.1.1 [2019-11-26]: Issue in function run_player that brings up an assertion error if the stack of card is empty and trying to assign nothing to empty card. 
+ Fixed it by including a try and except clause which will only assign a card if there is no assertion error. If there is one then a card will just be
+ drawn from deck.
+
 * v1.1.1 [2019-11-25]: More fixes have been made, solving most fails in pytest. Cards now definitely get reshuffled if stock is empty.  
 
 * v1.1.1 [2019-11-24]: A few small fixes which allow more of the pytest functions to succeed, and hence the actual game. 

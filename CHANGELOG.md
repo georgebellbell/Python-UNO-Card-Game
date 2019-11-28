@@ -1,4 +1,7 @@
 # CHANGELOG
+* v1.1.9 [2019-11-28]: Discovered issue where player name dorothy is never implemented due to only the first 3 names in the list being used.
+ Fixed this by doing a random.shuffle of the contents of the names so dorothy will have a chance of being picked
+
 *  v1.1.8 [2019-11-26]: Final change made so that all 20 tests pass. Issue with list object has no attribute split has been fixed 
  by removing some unneeded square brackets
 

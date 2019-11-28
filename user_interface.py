@@ -90,6 +90,7 @@ def get_player_information(MAX_PLAYERS):
         players.append(Player(get_string_input()))
 
     ai_names = ['Angela', 'Bart', 'Charly', 'Dorothy']
+    random.shuffle(ai_names)
 
     # how many AI players? ensure there are at least 2 players
     min = 1 if (len(players) == 1) else 0

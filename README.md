@@ -49,3 +49,4 @@ Or press `Run` in your IDE.
 Run the test suite with
 
 	$ python -m pytest
+
